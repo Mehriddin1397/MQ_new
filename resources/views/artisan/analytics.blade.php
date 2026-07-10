@@ -7,28 +7,28 @@
         <h1 class="section-title fs-4 mb-4">Sizning biznes analitikangiz</h1>
 
         <div class="row g-3 mb-4">
-            <div class="col-6">
+            <div class="col-6 col-lg-3">
                 <div class="stat-card">
                     <div class="stat-icon bg-primary-subtle text-primary"><i class="bi bi-cash-stack"></i></div>
                     <div class="stat-value fs-6">{{ number_format($totalSales) }} so'm</div>
                     <div class="stat-label">Jami sotuv</div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-lg-3">
                 <div class="stat-card">
                     <div class="stat-icon bg-success-subtle text-success"><i class="bi bi-calendar-check"></i></div>
                     <div class="stat-value fs-6">{{ number_format($monthlySales) }} so'm</div>
                     <div class="stat-label">Bu oydagi</div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-lg-3">
                 <div class="stat-card">
                     <div class="stat-icon bg-info-subtle text-info"><i class="bi bi-cart-check"></i></div>
                     <div class="stat-value">{{ $totalOrders }}</div>
                     <div class="stat-label">Buyurtmalar</div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-lg-3">
                 <div class="stat-card">
                     <div class="stat-icon bg-warning-subtle text-warning"><i class="bi bi-star"></i></div>
                     <div class="stat-value">{{ number_format($avgRating, 1) }}</div>

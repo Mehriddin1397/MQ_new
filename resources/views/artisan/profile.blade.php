@@ -3,7 +3,7 @@
 @section('title', 'Do\'kon profili')
 
 @section('content')
-    <div class="section pb-5">
+    <div class="section pb-5 form-page-lg">
         <div class="d-flex align-items-center mb-4 gap-3">
             <a href="{{ route('artisan.dashboard') }}" class="btn btn-icon btn-sm bg-light text-dark shadow-sm">
                 <i class="bi bi-arrow-left"></i>

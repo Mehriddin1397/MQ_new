@@ -39,33 +39,39 @@
             @endforeach
         </div>
 
-        <!-- Top Products -->
-        <div class="section-header">
-            <h2 class="section-title">Top mahsulotlar</h2>
-        </div>
-        <div class="bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
-            @foreach($topProducts as $product)
-                <div class="p-3 border-bottom d-flex align-items-center gap-3">
-                    <div class="fw-bold text-muted small" style="width: 20px;">#{{ $loop->iteration }}</div>
-                    <div class="flex-grow-1 small fw-medium text-truncate">{{ $product->name }}</div>
-                    <div class="badge bg-primary-subtle text-primary rounded-pill small">{{ $product->sales_count }} sotilgan
-                    </div>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <!-- Top Products -->
+                <div class="section-header">
+                    <h2 class="section-title">Top mahsulotlar</h2>
                 </div>
-            @endforeach
-        </div>
+                <div class="bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
+                    @foreach($topProducts as $product)
+                        <div class="p-3 border-bottom d-flex align-items-center gap-3">
+                            <div class="fw-bold text-muted small" style="width: 20px;">#{{ $loop->iteration }}</div>
+                            <div class="flex-grow-1 small fw-medium text-truncate">{{ $product->name }}</div>
+                            <div class="badge bg-primary-subtle text-primary rounded-pill small">{{ $product->sales_count }} sotilgan
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
-        <!-- Top Artisans -->
-        <div class="section-header">
-            <h2 class="section-title">Top hunarmandlar</h2>
-        </div>
-        <div class="bg-white rounded-4 shadow-sm border overflow-hidden">
-            @foreach($topArtisans as $artisan)
-                <div class="p-3 border-bottom d-flex align-items-center gap-3">
-                    <img src="{{ $artisan->avatar_url }}" class="rounded-circle" width="30" height="30">
-                    <div class="flex-grow-1 small fw-medium">{{ $artisan->artisanProfile->shop_name }}</div>
-                    <div class="text-muted small">{{ $artisan->products_count }} mahsulot</div>
+            <div class="col-lg-6">
+                <!-- Top Artisans -->
+                <div class="section-header">
+                    <h2 class="section-title">Top hunarmandlar</h2>
                 </div>
-            @endforeach
+                <div class="bg-white rounded-4 shadow-sm border overflow-hidden">
+                    @foreach($topArtisans as $artisan)
+                        <div class="p-3 border-bottom d-flex align-items-center gap-3">
+                            <img src="{{ $artisan->avatar_url }}" class="rounded-circle" width="30" height="30">
+                            <div class="flex-grow-1 small fw-medium">{{ $artisan->artisanProfile->shop_name }}</div>
+                            <div class="text-muted small">{{ $artisan->products_count }} mahsulot</div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 @endsection

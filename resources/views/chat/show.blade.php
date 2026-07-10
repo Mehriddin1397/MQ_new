@@ -3,10 +3,9 @@
 @section('title', 'Suhbat - ' . $otherUser->name)
 
 @section('content')
-    <div class="d-flex flex-column"
-        style="height: calc(100vh - 56px - 70px); @media (min-width: 992px) { height: calc(100vh - 56px); }">
+    <div class="d-flex flex-column chat-page">
         {{-- Chat Header --}}
-        <div class="p-3 bg-white border-bottom d-flex align-items-center gap-3">
+        <div class="p-3 bg-white border-bottom d-flex align-items-center gap-3 chat-header">
             <a href="{{ route('chat.index') }}" class="btn btn-icon btn-sm"><i class="bi bi-arrow-left"></i></a>
             <img src="{{ $otherUser->avatar_url }}" alt="{{ $otherUser->name }}" class="rounded-circle" width="40"
                 height="40">

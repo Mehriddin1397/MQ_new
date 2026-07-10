@@ -8,7 +8,7 @@
 
         <div class="row g-3">
             @foreach($artisans as $artisan)
-                <div class="col-6 col-md-4 col-lg-3">
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                     <a href="{{ route('artisans.show', $artisan->id) }}" class="artisan-card h-100">
                         <img src="{{ $artisan->avatar_url }}" alt="{{ $artisan->name }}" class="artisan-avatar" width="80"
                             height="80">

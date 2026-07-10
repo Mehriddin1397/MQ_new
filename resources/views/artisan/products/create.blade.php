@@ -3,7 +3,7 @@
 @section('title', 'Yangi mahsulot')
 
 @section('content')
-    <div class="section pb-4">
+    <div class="section pb-4 form-page-lg">
         <div class="d-flex align-items-center gap-2 mb-3">
             <a href="{{ route('artisan.products') }}" class="btn btn-icon btn-sm bg-white shadow-sm"><i
                     class="bi bi-arrow-left"></i></a>

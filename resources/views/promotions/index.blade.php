@@ -22,7 +22,7 @@
         @else
             <div class="row g-3">
                 @foreach($products as $product)
-                    <div class="col-6">
+                    <div class="col-6 col-lg-3 col-xl-2">
                         @include('partials.product-card', ['product' => $product])
                     </div>
                 @endforeach

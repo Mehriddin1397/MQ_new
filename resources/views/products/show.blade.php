@@ -3,97 +3,103 @@
 @section('title', $product->name)
 
 @section('content')
-    <div class="product-gallery">
-        @if($product->images->isNotEmpty())
-            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach($product->images as $index => $image)
-                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                            <img src="{{ $image->url }}" class="d-block w-100" alt="{{ $product->name }}">
+    <div class="row g-0 g-lg-4 px-lg-4 pt-lg-4">
+        <div class="col-lg-5">
+            <div class="product-gallery product-gallery-lg-sticky">
+                @if($product->images->isNotEmpty())
+                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach($product->images as $index => $image)
+                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                    <img src="{{ $image->url }}" class="d-block w-100" alt="{{ $product->name }}">
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
-                @if($product->images->count() > 1)
-                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
+                        @if($product->images->count() > 1)
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        @endif
+                    </div>
+                @else
+                    <img src="{{ asset('images/no-image.png') }}" class="w-100" alt="No image">
+                @endif
+
+                @if($product->discount_percent)
+                    <div class="discount-badge" style="top: 20px; left: 20px; font-size: 0.9rem;">-{{ $product->discount_percent }}%
+                    </div>
                 @endif
             </div>
-        @else
-            <img src="{{ asset('images/no-image.png') }}" class="w-100" alt="No image">
-        @endif
-
-        @if($product->discount_percent)
-            <div class="discount-badge" style="top: 20px; left: 20px; font-size: 0.9rem;">-{{ $product->discount_percent }}%
-            </div>
-        @endif
-    </div>
-
-    <div class="section bg-white border-bottom shadow-sm">
-        <div class="d-flex justify-content-between align-items-start mb-2">
-            <h1 class="fs-5 fw-bold mb-0">{{ $product->name }}</h1>
-            <div class="text-primary fw-bold">{{ $product->formatted_price }}</div>
         </div>
 
-        <div class="d-flex align-items-center gap-2 mb-3">
-            <div class="product-rating">
-                <i class="bi bi-star-fill text-warning"></i>
-                <span class="fw-bold">{{ $product->rating }}</span>
-                <span class="text-muted">({{ $product->total_reviews }} sharh)</span>
-            </div>
-            <span class="text-muted small">|</span>
-            <span class="text-muted small">Sotildi: {{ $product->sales_count }} ta</span>
-        </div>
+        <div class="col-lg-7">
+            <div class="section bg-white border-bottom shadow-sm">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h1 class="fs-5 fw-bold mb-0">{{ $product->name }}</h1>
+                    <div class="text-primary fw-bold">{{ $product->formatted_price }}</div>
+                </div>
 
-        @if($product->discount_price)
-            <div class="text-muted small text-decoration-line-through mb-1">{{ number_format($product->price, 0, '.', ' ') }}
-                so'm</div>
-        @endif
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <div class="product-rating">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span class="fw-bold">{{ $product->rating }}</span>
+                        <span class="text-muted">({{ $product->total_reviews }} sharh)</span>
+                    </div>
+                    <span class="text-muted small">|</span>
+                    <span class="text-muted small">Sotildi: {{ $product->sales_count }} ta</span>
+                </div>
 
-        <div class="d-flex gap-2 mb-3">
-            @auth
-                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="flex-grow-1">
-                    @csrf
-                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
-                        <i class="bi bi-bag-plus me-2"></i>Savatga qo'shish
-                    </button>
-                </form>
-                <form action="{{ route('wishlist.toggle', $product->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-outline-danger px-3 py-2">
-                        <i
-                            class="bi bi-heart{{ auth()->user()->wishlistItems->contains('product_id', $product->id) ? '-fill' : '' }}"></i>
-                    </button>
-                </form>
-            @else
-                <a href="{{ route('login') }}" class="btn btn-primary w-100 py-2 fw-bold">Kirish va sotib olish</a>
-            @endauth
-        </div>
-    </div>
+                @if($product->discount_price)
+                    <div class="text-muted small text-decoration-line-through mb-1">{{ number_format($product->price, 0, '.', ' ') }}
+                        so'm</div>
+                @endif
 
-    {{-- Artisan Info --}}
-    <div class="section my-2 bg-white border-top border-bottom">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center gap-3">
-                <img src="{{ $product->user->avatar_url }}" alt="{{ $product->user->name }}" class="rounded-circle"
-                    width="50" height="50">
-                <div>
-                    <div class="fw-bold">{{ $product->user->artisanProfile->shop_name }}</div>
-                    <div class="text-muted small">{{ $product->user->artisanProfile->specialty }}</div>
+                <div class="d-flex gap-2 mb-3">
+                    @auth
+                        <form action="{{ route('cart.add', $product->id) }}" method="POST" class="flex-grow-1">
+                            @csrf
+                            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
+                                <i class="bi bi-bag-plus me-2"></i>Savatga qo'shish
+                            </button>
+                        </form>
+                        <form action="{{ route('wishlist.toggle', $product->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger px-3 py-2">
+                                <i
+                                    class="bi bi-heart{{ auth()->user()->wishlistItems->contains('product_id', $product->id) ? '-fill' : '' }}"></i>
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-primary w-100 py-2 fw-bold">Kirish va sotib olish</a>
+                    @endauth
                 </div>
             </div>
-            <div class="d-flex gap-2">
-                <a href="{{ route('artisans.show', $product->user->id) }}"
-                    class="btn btn-sm btn-outline-primary rounded-pill">Profil</a>
-                @auth
-                    <form action="{{ route('chat.start', $product->user->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-primary rounded-pill">Chat</button>
-                    </form>
-                @endauth
+
+            {{-- Artisan Info --}}
+            <div class="section my-2 bg-white border-top border-bottom">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="{{ $product->user->avatar_url }}" alt="{{ $product->user->name }}" class="rounded-circle"
+                            width="50" height="50">
+                        <div>
+                            <div class="fw-bold">{{ $product->user->artisanProfile->shop_name }}</div>
+                            <div class="text-muted small">{{ $product->user->artisanProfile->specialty }}</div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('artisans.show', $product->user->id) }}"
+                            class="btn btn-sm btn-outline-primary rounded-pill">Profil</a>
+                        @auth
+                            <form action="{{ route('chat.start', $product->user->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-primary rounded-pill">Chat</button>
+                            </form>
+                        @endauth
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -10,6 +10,8 @@
             <h1 class="section-title fs-5 mb-0">Buyurtma tafsilotlari</h1>
         </div>
 
+        <div class="row g-4">
+        <div class="col-lg-8">
         <div class="card border-0 shadow-sm rounded-4 mb-3">
             <div class="card-body p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
@@ -78,7 +80,9 @@
                 </div>
             </div>
         </div>
+        </div>
 
+        <div class="col-lg-4">
         <div class="card border-0 shadow-sm rounded-4 mb-3">
             <div class="card-body p-3">
                 <h2 class="fs-6 fw-bold mb-3 border-bottom pb-2">Yetkazib berish</h2>
@@ -103,5 +107,7 @@
                 <button type="submit" class="btn btn-outline-danger w-100 rounded-pill py-2">Bekor qilish</button>
             </form>
         @endif
+        </div>
+        </div>
     </div>
 @endsection

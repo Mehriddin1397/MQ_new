@@ -797,8 +797,140 @@ body {
     }
 }
 
+/* === XL DESKTOP (>=1200px) === */
+@media (min-width: 1200px) {
+    .app-content {
+        max-width: 1140px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 24px;
+    }
+
+    .hero-section {
+        height: 340px;
+        padding: 0 80px;
+    }
+
+    .hero-title {
+        font-size: 2.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .section {
+        padding: 48px;
+    }
+
+    .category-card .cat-icon {
+        font-size: 2.25rem;
+    }
+}
+
+/* === XXL / 2XL DESKTOP (>=1400px) === */
+@media (min-width: 1400px) {
+    .app-content {
+        max-width: 1320px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 28px;
+    }
+
+    .hero-section {
+        height: 380px;
+        padding: 0 100px;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .section {
+        padding: 56px;
+    }
+}
+
 .desktop-header {
     display: none;
+}
+
+/* === HEADER SEARCH (desktop) === */
+.header-search {
+    width: 180px;
+}
+
+@media (min-width: 1200px) {
+    .header-search {
+        width: 260px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .header-search {
+        width: 320px;
+    }
+}
+
+/* === CHAT (desktop) === */
+.chat-page {
+    height: calc(100vh - 56px - 70px);
+}
+
+@media (min-width: 992px) {
+    .chat-page {
+        height: calc(100vh - 56px);
+    }
+}
+
+@media (min-width: 1200px) {
+    .chat-page .chat-messages,
+    .chat-page .chat-input-area,
+    .chat-page .chat-header {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+}
+
+/* === CART / CHECKOUT SUMMARY (desktop) === */
+@media (min-width: 992px) {
+    .cart-summary,
+    .checkout-summary-col {
+        position: sticky;
+        top: 100px;
+        bottom: auto !important;
+    }
+}
+
+/* === PRODUCT DETAIL (desktop) === */
+@media (min-width: 992px) {
+    .product-gallery-lg-sticky {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        position: sticky;
+        top: 100px;
+    }
+}
+
+/* === SINGLE-COLUMN FORM PAGES (desktop) === */
+@media (min-width: 992px) {
+    .form-page-lg {
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (min-width: 1200px) {
+    .form-page-lg {
+        max-width: 760px;
+    }
 }
 
 /* === REVIEW STARS === */

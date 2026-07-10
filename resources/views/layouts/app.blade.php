@@ -57,16 +57,16 @@
                     <span class="logo-text fs-4">MohirQo'llar</span>
                 </a>
 
-                <nav class="d-flex align-items-center gap-4 fw-medium">
+                <nav class="d-flex align-items-center gap-3 gap-xl-4 fw-medium">
                     <a href="{{ route('home') }}" class="text-decoration-none text-dark {{ request()->routeIs('home') ? 'text-primary' : '' }}">Bosh sahifa</a>
                     <a href="{{ route('products.index') }}" class="text-decoration-none text-dark {{ request()->routeIs('products.*') ? 'text-primary' : '' }}">Katalog</a>
                     <a href="{{ route('artisans.index') }}" class="text-decoration-none text-dark {{ request()->routeIs('artisans.*') ? 'text-primary' : '' }}">Ustalar</a>
                     <a href="{{ route('promotions.index') }}" class="text-decoration-none text-dark {{ request()->routeIs('promotions.*') ? 'text-primary' : '' }}">Aksiyalar</a>
                 </nav>
 
-                <div class="d-flex align-items-center gap-3">
-                    <form action="{{ route('products.index') }}" method="GET" class="position-relative d-none d-xl-block">
-                        <input type="text" name="search" class="form-control rounded-pill ps-4" placeholder="Qidirish..." style="width: 250px;">
+                <div class="d-flex align-items-center gap-2 gap-xl-3">
+                    <form action="{{ route('products.index') }}" method="GET" class="position-relative d-none d-lg-block">
+                        <input type="text" name="search" class="form-control rounded-pill ps-4 header-search" placeholder="Qidirish...">
                         <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
                     </form>
                     
