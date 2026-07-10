@@ -139,6 +139,14 @@
             </div>
         </div>
     @endif
+    @if(session('warning'))
+        <div class="container-fluid px-3 mt-2">
+            <div class="alert alert-warning alert-dismissible fade show py-2 small rounded-3" role="alert">
+                <i class="bi bi-exclamation-triangle me-1"></i>{{ session('warning') }}
+                <button type="button" class="btn-close btn-close-sm" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    @endif
     @if($errors->any())
         <div class="container-fluid px-3 mt-2">
             <div class="alert alert-danger alert-dismissible fade show py-2 small rounded-3" role="alert">

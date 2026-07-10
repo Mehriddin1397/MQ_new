@@ -12,7 +12,8 @@ class ArtisanApproved
         if (auth()->user()->isArtisan()) {
             $profile = auth()->user()->artisanProfile;
             if (!$profile || !$profile->isApproved()) {
-                return redirect()->route('artisan.pending');
+                return redirect()->route('artisan.dashboard')
+                    ->with('warning', 'Bu bo\'lim admin tasdiqlagandan so\'ng ochiladi. Hozircha do\'kon profilingizni sozlab qo\'yishingiz mumkin.');
             }
         }
 

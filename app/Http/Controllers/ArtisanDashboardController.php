@@ -17,6 +17,7 @@ class ArtisanDashboardController extends Controller
     public function dashboard()
     {
         $user = auth()->user();
+        $user->load('artisanProfile');
         $productsCount = $user->products()->count();
         $ordersCount = OrderItem::where('artisan_id', $user->id)->count();
         $totalSales = OrderItem::where('artisan_id', $user->id)
@@ -29,11 +30,6 @@ class ArtisanDashboardController extends Controller
             ->get();
 
         return view('artisan.dashboard', compact('user', 'productsCount', 'ordersCount', 'totalSales', 'recentOrders'));
-    }
-
-    public function pending()
-    {
-        return view('artisan.pending');
     }
 
     // Products

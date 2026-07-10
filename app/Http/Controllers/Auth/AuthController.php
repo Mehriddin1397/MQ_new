@@ -80,7 +80,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         return match ($user->role) {
-            'artisan' => redirect()->route('artisan.pending'),
+            'artisan' => redirect()->route('artisan.dashboard'),
             default => redirect()->route('home'),
         };
     }

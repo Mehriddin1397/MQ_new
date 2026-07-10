@@ -86,11 +86,13 @@ Route::middleware('auth')->group(function () {
 
 // Artisan routes
 Route::middleware(['auth', 'role:artisan'])->prefix('artisan')->name('artisan.')->group(function () {
-    Route::get('/pending', [ArtisanDashboardController::class, 'pending'])->name('pending');
+    Route::get('/dashboard', [ArtisanDashboardController::class, 'dashboard'])->name('dashboard');
+
+    // Profile (always accessible, even before approval)
+    Route::get('/profile', [ArtisanDashboardController::class, 'profile'])->name('profile');
+    Route::put('/profile', [ArtisanDashboardController::class, 'updateProfile'])->name('profile.update');
 
     Route::middleware('artisan.approved')->group(function () {
-        Route::get('/dashboard', [ArtisanDashboardController::class, 'dashboard'])->name('dashboard');
-
         // Products
         Route::get('/products', [ArtisanDashboardController::class, 'products'])->name('products');
         Route::get('/products/create', [ArtisanDashboardController::class, 'createProduct'])->name('products.create');
@@ -111,10 +113,6 @@ Route::middleware(['auth', 'role:artisan'])->prefix('artisan')->name('artisan.')
 
         // Analytics
         Route::get('/analytics', [ArtisanDashboardController::class, 'analytics'])->name('analytics');
-
-        // Profile
-        Route::get('/profile', [ArtisanDashboardController::class, 'profile'])->name('profile');
-        Route::put('/profile', [ArtisanDashboardController::class, 'updateProfile'])->name('profile.update');
     });
 });
 

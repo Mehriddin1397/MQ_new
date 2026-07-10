@@ -3,6 +3,7 @@
 @section('title', 'Artisan Kabinet')
 
 @section('content')
+    @php $approved = $user->artisanProfile && $user->artisanProfile->isApproved(); @endphp
     <div class="section pb-0">
         <div class="d-flex align-items-center justify-content-between mb-4 bg-white p-3 rounded-4 shadow-sm">
             <div class="d-flex align-items-center gap-3">
@@ -12,11 +13,26 @@
                 <div>
                     <h1 class="fs-6 fw-bold mb-0 text-truncate" style="max-width: 150px;">
                         {{ $user->artisanProfile->shop_name }}</h1>
-                    <div class="text-success small"><i class="bi bi-patch-check-fill"></i> Tasdiqlangan</div>
+                    @if($approved)
+                        <div class="text-success small"><i class="bi bi-patch-check-fill"></i> Tasdiqlangan</div>
+                    @else
+                        <div class="text-warning small"><i class="bi bi-hourglass-split"></i> Ko'rib chiqilmoqda</div>
+                    @endif
                 </div>
             </div>
             <a href="{{ route('artisan.profile') }}" class="btn btn-icon bg-light"><i class="bi bi-gear"></i></a>
         </div>
+
+        @unless($approved)
+            <div class="alert alert-warning rounded-4 shadow-sm mb-4 d-flex gap-2">
+                <i class="bi bi-hourglass-split fs-5"></i>
+                <div class="small">
+                    <strong>Hisobingiz admin tomonidan ko'rib chiqilmoqda.</strong>
+                    Tasdiqlanganingizdan so'ng mahsulot qo'shish, buyurtmalar, chegirmalar va statistika bo'limlari
+                    ochiladi. Hozircha do'kon profilingizni to'ldirib qo'yishingiz mumkin.
+                </div>
+            </div>
+        @endunless
 
         <div class="row g-3 mb-4">
             <div class="col-6">
@@ -44,28 +60,28 @@
 
         <div class="dash-nav rounded-4 shadow-sm mb-4 border bg-white overflow-hidden" style="display: block;">
             <a href="{{ route('artisan.products') }}"
-                class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom">
+                class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom {{ !$approved ? 'text-muted' : '' }}">
                 <i class="bi bi-box fs-5 text-muted me-3"></i>
                 <span class="flex-grow-1">Mening mahsulotlarim</span>
-                <i class="bi bi-chevron-right text-muted small"></i>
+                <i class="bi {{ $approved ? 'bi-chevron-right' : 'bi-lock-fill' }} text-muted small"></i>
             </a>
             <a href="{{ route('artisan.orders') }}"
-                class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom">
+                class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom {{ !$approved ? 'text-muted' : '' }}">
                 <i class="bi bi-receipt fs-5 text-muted me-3"></i>
                 <span class="flex-grow-1">Buyurtmalar</span>
-                <i class="bi bi-chevron-right text-muted small"></i>
+                <i class="bi {{ $approved ? 'bi-chevron-right' : 'bi-lock-fill' }} text-muted small"></i>
             </a>
             <a href="{{ route('artisan.analytics') }}"
-                class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom">
+                class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom {{ !$approved ? 'text-muted' : '' }}">
                 <i class="bi bi-graph-up fs-5 text-muted me-3"></i>
                 <span class="flex-grow-1">Savdo statistikasi</span>
-                <i class="bi bi-chevron-right text-muted small"></i>
+                <i class="bi {{ $approved ? 'bi-chevron-right' : 'bi-lock-fill' }} text-muted small"></i>
             </a>
             <a href="{{ route('artisan.discounts') }}"
-                class="list-group-item list-group-item-action d-flex align-items-center p-3">
+                class="list-group-item list-group-item-action d-flex align-items-center p-3 {{ !$approved ? 'text-muted' : '' }}">
                 <i class="bi bi-percent fs-5 text-muted me-3"></i>
                 <span class="flex-grow-1">Chegirmalar</span>
-                <i class="bi bi-chevron-right text-muted small"></i>
+                <i class="bi {{ $approved ? 'bi-chevron-right' : 'bi-lock-fill' }} text-muted small"></i>
             </a>
         </div>
 
