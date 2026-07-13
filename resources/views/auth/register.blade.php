@@ -78,6 +78,16 @@
                 <button type="submit" class="btn btn-primary w-100 mb-3">Ro'yxatdan o'tish</button>
             </form>
 
+            <div class="d-flex align-items-center gap-2 my-3">
+                <hr class="flex-grow-1">
+                <span class="small text-muted">yoki</span>
+                <hr class="flex-grow-1">
+            </div>
+
+            <a href="{{ route('login.telegram') }}" class="btn btn-outline-primary w-100 mb-3">
+                <i class="bi bi-telegram me-1"></i> Telegram orqali ro'yxatdan o'tish
+            </a>
+
             <div class="text-center">
                 <p class="small text-muted">Hisobingiz bormi? <a href="{{ route('login') }}"
                         class="text-primary text-decoration-none fw-bold">Kirish</a></p>

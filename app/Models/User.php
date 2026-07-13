@@ -21,6 +21,8 @@ class User extends Authenticatable
         'address',
         'city',
         'status',
+        'telegram_id',
+        'telegram_username',
     ];
 
     protected $hidden = ['password', 'remember_token'];
