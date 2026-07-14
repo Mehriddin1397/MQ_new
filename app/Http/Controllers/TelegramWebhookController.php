@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\TelegramLoginToken;
-use App\Models\User;
 use App\Services\TelegramService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -37,7 +36,7 @@ class TelegramWebhookController extends Controller
         }
 
         $from = $message['from'];
-        $user = $this->findOrCreateUser($from);
+        $user = $telegram->findOrCreateUser($from);
 
         $loginToken = trim(Str::after($text, '/start'));
         if ($loginToken !== '') {
@@ -95,27 +94,5 @@ class TelegramWebhookController extends Controller
         }
 
         $telegram->answerCallbackQuery($query['id']);
-    }
-
-    protected function findOrCreateUser(array $from): User
-    {
-        $telegramId = $from['id'];
-
-        $user = User::where('telegram_id', $telegramId)->first();
-        if ($user) {
-            return $user;
-        }
-
-        $name = trim(($from['first_name'] ?? '') . ' ' . ($from['last_name'] ?? '')) ?: 'Telegram foydalanuvchi';
-
-        return User::create([
-            'name' => $name,
-            'email' => 'tg' . $telegramId . '@telegram.mohirqollar.uz',
-            'password' => Str::random(32),
-            'role' => 'user',
-            'status' => 'active',
-            'telegram_id' => $telegramId,
-            'telegram_username' => $from['username'] ?? null,
-        ]);
     }
 }

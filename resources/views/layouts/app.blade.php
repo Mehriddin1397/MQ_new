@@ -247,6 +247,45 @@
         // CSRF for AJAX
         window.csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     </script>
+    @guest
+        <script>
+            // Telegram Mini App: auto-login using signed initData, before any page renders a login prompt
+            (function () {
+                function autoLogin() {
+                    var tg = window.Telegram && window.Telegram.WebApp;
+                    if (!tg || !tg.initData) return;
+
+                    tg.ready();
+
+                    fetch('{{ route('telegram.webapp-auth') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': window.csrfToken,
+                        },
+                        body: JSON.stringify({ init_data: tg.initData }),
+                    })
+                        .then(function (res) { return res.json(); })
+                        .then(function (data) {
+                            if (data && data.ok) {
+                                window.location.href = data.redirect || window.location.href;
+                            }
+                        })
+                        .catch(function () { /* not inside Telegram or network hiccup */ });
+                }
+
+                if (window.Telegram && window.Telegram.WebApp) {
+                    autoLogin();
+                } else {
+                    var script = document.createElement('script');
+                    script.src = 'https://telegram.org/js/telegram-web-app.js';
+                    script.onload = autoLogin;
+                    document.head.appendChild(script);
+                }
+            })();
+        </script>
+    @endguest
     @stack('scripts')
 </body>
 

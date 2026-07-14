@@ -5,6 +5,7 @@ use App\Http\Controllers\ArtisanController;
 use App\Http\Controllers\ArtisanDashboardController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\TelegramAuthController;
+use App\Http\Controllers\Auth\TelegramWebAppAuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
@@ -49,6 +50,9 @@ Route::middleware('guest')->group(function () {
 
 // Telegram bot webhook (no CSRF, no auth)
 Route::post('/telegram/webhook', TelegramWebhookController::class)->name('telegram.webhook');
+
+// Telegram Mini App auto-login (verifies Telegram WebApp initData signature)
+Route::post('/telegram/webapp-auth', [TelegramWebAppAuthController::class, 'login'])->name('telegram.webapp-auth');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
