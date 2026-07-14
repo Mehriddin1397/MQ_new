@@ -56,8 +56,8 @@
             </a>
 
             <div class="text-center">
-                <p class="small text-muted">Hisobingiz yo'qmi? <a href="{{ route('register') }}"
-                        class="text-primary text-decoration-none fw-bold">Ro'yxatdan o'tish</a></p>
+                <p class="small text-muted">Hisobingiz yo'qmi? Telegram orqali kirsangiz, avtomatik ro'yxatdan
+                    o'tasiz.</p>
             </div>
         </div>
     </div>

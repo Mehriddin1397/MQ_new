@@ -71,6 +71,47 @@
             </a>
         </div>
 
+        @if ($user->isUser())
+            <button type="button" class="btn btn-primary w-100 rounded-pill py-2 fw-bold mb-4" data-bs-toggle="modal"
+                data-bs-target="#becomeArtisanModal">
+                <i class="bi bi-shop me-2"></i>Hunarmandlikka o'tish
+            </button>
+
+            <div class="modal fade" id="becomeArtisanModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4">
+                        <form action="{{ route('user.become-artisan') }}" method="POST">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title">Hunarmandlikka o'tish so'rovi</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="small text-muted">So'rovingiz admin tomonidan ko'rib chiqiladi va
+                                    tasdiqlangach, hunarmand paneliga to'liq kirish imkoniyatiga ega bo'lasiz.</p>
+                                <div class="mb-3">
+                                    <label class="form-label">Do'kon/usta nomi</label>
+                                    <input type="text" name="shop_name" class="form-control" required
+                                        value="{{ old('shop_name') }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Yo'nalish (ixtiyoriy)</label>
+                                    <input type="text" name="specialty" class="form-control"
+                                        placeholder="Masalan: kulolchilik, yog'och ustachiligi"
+                                        value="{{ old('specialty') }}">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    data-bs-dismiss="modal">Bekor qilish</button>
+                                <button type="submit" class="btn btn-primary">So'rov yuborish</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-outline-danger w-100 rounded-pill py-2 fw-bold mb-4">

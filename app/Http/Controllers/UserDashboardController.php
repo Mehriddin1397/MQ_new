@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArtisanProfile;
 use Illuminate\Http\Request;
 
 class UserDashboardController extends Controller
@@ -53,5 +54,31 @@ class UserDashboardController extends Controller
             ->paginate(10);
 
         return view('user.reviews', compact('reviews'));
+    }
+
+    public function becomeArtisan(Request $request)
+    {
+        $user = auth()->user();
+
+        if (!$user->isUser()) {
+            return back()->with('error', "Bu so'rov faqat oddiy foydalanuvchilar uchun.");
+        }
+
+        $request->validate([
+            'shop_name' => 'required|string|max:255',
+            'specialty' => 'nullable|string|max:255',
+        ]);
+
+        $user->update(['role' => 'artisan']);
+
+        ArtisanProfile::create([
+            'user_id' => $user->id,
+            'shop_name' => $request->shop_name,
+            'specialty' => $request->specialty,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('artisan.dashboard')
+            ->with('success', "So'rovingiz yuborildi! Admin tasdiqlashini kuting.");
     }
 }

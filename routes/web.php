@@ -41,8 +41,6 @@ Route::get('/promotions', [PromotionController::class, 'index'])->name('promotio
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('/login/telegram', [TelegramAuthController::class, 'redirect'])->name('login.telegram');
     Route::get('/login/telegram/{token}/status', [TelegramAuthController::class, 'status'])->name('login.telegram.status');
@@ -90,6 +88,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile', [UserDashboardController::class, 'profile'])->name('profile');
         Route::put('/profile', [UserDashboardController::class, 'updateProfile'])->name('profile.update');
         Route::get('/reviews', [UserDashboardController::class, 'reviews'])->name('reviews');
+        Route::post('/become-artisan', [UserDashboardController::class, 'becomeArtisan'])->name('become-artisan');
     });
 });
 
