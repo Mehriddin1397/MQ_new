@@ -86,6 +86,15 @@ body {
     font-size: 1.5rem;
 }
 
+.logo-icon-img {
+    height: 28px;
+    width: auto;
+}
+
+.logo-icon-img-lg {
+    height: 36px;
+}
+
 .logo-text {
     font-size: 1.1rem;
     font-weight: 800;

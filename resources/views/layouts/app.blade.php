@@ -7,7 +7,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Mohir Qo'llar - O'zbekiston hunarmandlari marketplace">
     <meta name="theme-color" content="#6366f1">
+    <meta property="og:title" content="@yield('title', 'Mohir Qo\'llar')">
+    <meta property="og:description" content="Mohir Qo'llar - O'zbekiston hunarmandlari marketplace">
+    <meta property="og:image" content="{{ asset('img/logo/logo-horizontal-white-1600.png') }}">
     <title>@yield('title', 'Mohir Qo\'llar') - Marketplace</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/logo/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/logo/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('img/logo/app-icon-1024x1024.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -23,7 +31,7 @@
         <div class="container-fluid px-3">
             <div class="d-flex align-items-center justify-content-between py-2">
                 <a href="{{ route('home') }}" class="app-logo text-decoration-none">
-                    <span class="logo-icon">🎨</span>
+                    <img src="{{ asset('img/logo/icon-transparent-1024x1024.png') }}" alt="Mohir Qollar" class="logo-icon-img">
                     <span class="logo-text">MohirQo'llar</span>
                 </a>
 
@@ -53,7 +61,7 @@
         <div class="container py-3">
             <div class="d-flex align-items-center justify-content-between">
                 <a href="{{ route('home') }}" class="app-logo text-decoration-none">
-                    <span class="logo-icon fs-3">🎨</span>
+                    <img src="{{ asset('img/logo/icon-transparent-1024x1024.png') }}" alt="Mohir Qollar" class="logo-icon-img logo-icon-img-lg">
                     <span class="logo-text fs-4">MohirQo'llar</span>
                 </a>
 

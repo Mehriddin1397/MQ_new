@@ -5,7 +5,9 @@
 @section('content')
     <div class="section">
         <div class="auth-card mt-4">
-            <div class="auth-header">
+            <div class="auth-header text-center">
+                <img src="{{ asset('img/logo/icon-transparent-1024x1024.png') }}" alt="Mohir Qollar" height="56"
+                    class="mb-2">
                 <h1 class="auth-title">Xush kelibsiz!</h1>
                 <p class="auth-subtitle">Davom etish uchun hisobingizga kiring</p>
             </div>
