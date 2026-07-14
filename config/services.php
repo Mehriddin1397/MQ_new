@@ -40,8 +40,8 @@ return [
         'bot_username' => env('TELEGRAM_BOT_USERNAME'),
         'webhook_secret' => env('TELEGRAM_WEBHOOK_SECRET'),
         'mini_app_url' => env('TELEGRAM_MINI_APP_URL', 'https://mohirqollar.uz'),
-        'channel_url' => env('TELEGRAM_CHANNEL_URL', 'https://t.me/Mohir_Qollaruz'),
-        'contact_username' => env('TELEGRAM_CONTACT_USERNAME', 'https://t.me/MehriddinSoyibov'),
+        'channel_url' => env('TELEGRAM_CHANNEL_URL', 'https://telegram.me/Mohir_Qollaruz'),
+        'contact_username' => env('TELEGRAM_CONTACT_USERNAME', 'https://telegram.me/MehriddinSoyibov'),
         'contact_phone' => env('TELEGRAM_CONTACT_PHONE', '+998942551397'),
     ],
 

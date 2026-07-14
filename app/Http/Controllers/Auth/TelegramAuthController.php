@@ -18,7 +18,7 @@ class TelegramAuthController extends Controller
             'expires_at' => now()->addMinutes(10),
         ]);
 
-        $botUrl = 'https://t.me/' . config('services.telegram.bot_username') . '?start=' . $loginToken->token;
+        $botUrl = 'https://telegram.me/' . config('services.telegram.bot_username') . '?start=' . $loginToken->token;
 
         return view('auth.telegram-pending', [
             'token' => $loginToken->token,
