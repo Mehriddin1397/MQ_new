@@ -59,8 +59,10 @@
 
                     <div class="mb-4">
                         <label class="form-label">Rasmlar (bir nechta tanaish mumkin)</label>
-                        <input type="file" name="images[]" class="form-control" multiple accept="image/*">
-                        <div class="small text-muted mt-1">Birinchi rasm asosiy bo'ladi.</div>
+                        <input type="file" name="images[]" id="imagesInput" class="form-control" multiple accept="image/*">
+                        <div class="small text-muted mt-1">Birinchi rasm asosiy bo'ladi. Saytda barcha rasmlar bir xil
+                            (kvadrat, 1:1) o'lchamda ko'rsatiladi — eng yaxshi natija uchun kvadratga yaqin rasm yuklang.</div>
+                        <div id="imagePreview" class="d-flex flex-wrap gap-2 mt-2"></div>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill fw-bold">Saqlash</button>
@@ -68,4 +70,24 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            document.getElementById('imagesInput').addEventListener('change', function (e) {
+                const preview = document.getElementById('imagePreview');
+                preview.innerHTML = '';
+                Array.from(e.target.files).forEach(file => {
+                    const url = URL.createObjectURL(file);
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.className = 'rounded-3 border';
+                    img.style.width = '70px';
+                    img.style.height = '70px';
+                    img.style.objectFit = 'cover';
+                    img.onload = () => URL.revokeObjectURL(url);
+                    preview.appendChild(img);
+                });
+            });
+        </script>
+    @endpush
 @endsection

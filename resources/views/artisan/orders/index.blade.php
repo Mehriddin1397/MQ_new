@@ -34,7 +34,7 @@
                         <div class="card-body p-3">
                             <div class="d-flex gap-3 mb-3">
                                 <img src="{{ $item->product->primary_image_url }}" alt="" class="rounded-3 border" width="60"
-                                    height="60">
+                                    height="60" style="object-fit: cover;">
                                 <div class="flex-grow-1">
                                     <div class="small fw-bold">{{ $item->product_name }}</div>
                                     <div class="text-muted small">{{ $item->quantity }} x {{ number_format($item->price, 0, '.', ' ') }}

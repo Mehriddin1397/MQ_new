@@ -59,9 +59,10 @@
 
                 <div class="d-flex gap-2 mb-3">
                     @auth
-                        <form action="{{ route('cart.add', $product->id) }}" method="POST" class="flex-grow-1">
+                        <form action="{{ route('cart.add', $product->id) }}" method="POST" class="flex-grow-1"
+                            id="addToCartForm">
                             @csrf
-                            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
+                            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="addToCartBtn">
                                 <i class="bi bi-bag-plus me-2"></i>Savatga qo'shish
                             </button>
                         </form>
@@ -175,6 +176,14 @@
         @endauth
     </div>
 
+    @auth
+        <div id="floatingCheckoutBar" class="floating-checkout-bar">
+            <a href="{{ route('checkout') }}" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-lg">
+                <i class="bi bi-bag-check me-2"></i>Rasmiylashtirish
+            </a>
+        </div>
+    @endauth
+
     {{-- Related Products --}}
     @if($relatedProducts->isNotEmpty())
         <section class="section">
@@ -189,6 +198,33 @@
 
     @push('scripts')
         <script>
+            const addToCartForm = document.getElementById('addToCartForm');
+            if (addToCartForm) {
+                addToCartForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const btn = document.getElementById('addToCartBtn');
+                    btn.disabled = true;
+
+                    fetch(addToCartForm.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': window.csrfToken,
+                        },
+                        body: JSON.stringify({}),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            btn.disabled = false;
+                            if (data.success) {
+                                document.getElementById('floatingCheckoutBar').classList.add('show');
+                            }
+                        })
+                        .catch(() => { btn.disabled = false; });
+                });
+            }
+
             document.querySelectorAll('#rating-stars i').forEach(star => {
                 star.addEventListener('click', function () {
                     const rating = this.dataset.rating;

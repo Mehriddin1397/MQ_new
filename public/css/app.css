@@ -213,6 +213,36 @@ body {
     border-radius: 0 0 4px 4px;
 }
 
+/* === FLOATING CHECKOUT BAR === */
+.floating-checkout-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+    z-index: 1001;
+    padding: 0 16px;
+    transform: translateY(150%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.floating-checkout-bar.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (min-width: 992px) {
+    .floating-checkout-bar {
+        bottom: 24px;
+        left: auto;
+        right: 24px;
+        width: 320px;
+        padding: 0;
+    }
+}
+
 /* === PRODUCT CARDS === */
 .product-card {
     background: var(--surface);

@@ -34,6 +34,10 @@ class CartController extends Controller
 
         $cart->save();
 
+        if ($request->wantsJson()) {
+            return response()->json(['success' => true, 'message' => 'Mahsulot savatga qo\'shildi!']);
+        }
+
         return back()->with('success', 'Mahsulot savatga qo\'shildi!');
     }
 

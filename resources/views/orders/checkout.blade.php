@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="text-muted">Yetkazib berish:</span>
-                                    <span class="text-success">Bepul</span>
+                                    <span class="text-muted small">Manzilga qarab belgilanadi</span>
                                 </div>
                                 <div id="discountRow" class="d-flex justify-content-between mb-2 d-none">
                                     <span class="text-muted">Chegirma:</span>

@@ -69,8 +69,12 @@
                             @endforeach
                         </div>
                         <label class="form-label small fw-bold">Yangi rasmlar qo'shish</label>
-                        <input type="file" name="images[]" class="form-control rounded-3" multiple accept="image/*">
-                        <div class="text-muted mt-1" style="font-size: 0.65rem;">Max: 2MB per image</div>
+                        <input type="file" name="images[]" id="imagesInput" class="form-control rounded-3" multiple
+                            accept="image/*">
+                        <div class="text-muted mt-1" style="font-size: 0.65rem;">Max: 2MB per image. Saytda barcha rasmlar
+                            bir xil (kvadrat, 1:1) o'lchamda ko'rsatiladi — eng yaxshi natija uchun kvadratga yaqin rasm
+                            yuklang.</div>
+                        <div id="imagePreview" class="d-flex flex-wrap gap-2 mt-2"></div>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold shadow">
@@ -80,4 +84,24 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            document.getElementById('imagesInput').addEventListener('change', function (e) {
+                const preview = document.getElementById('imagePreview');
+                preview.innerHTML = '';
+                Array.from(e.target.files).forEach(file => {
+                    const url = URL.createObjectURL(file);
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.className = 'rounded-3 border';
+                    img.style.width = '70px';
+                    img.style.height = '70px';
+                    img.style.objectFit = 'cover';
+                    img.onload = () => URL.revokeObjectURL(url);
+                    preview.appendChild(img);
+                });
+            });
+        </script>
+    @endpush
 @endsection
