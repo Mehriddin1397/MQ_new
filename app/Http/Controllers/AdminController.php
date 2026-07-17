@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ArtisanProfile;
 use App\Models\Category;
+use App\Models\HelpVideo;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -38,13 +39,17 @@ class AdminController extends Controller
     // Users
     public function users(Request $request)
     {
-        $query = User::query();
+        $query = User::withCount('orders')
+            ->withSum(['orders as total_spent' => function ($q) {
+                $q->where('status', 'delivered');
+            }], 'total_amount');
 
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 
@@ -174,6 +179,33 @@ class AdminController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
+
+    // Help videos
+    public function helpVideos()
+    {
+        $videos = HelpVideo::latest()->paginate(20);
+
+        return view('admin.help.index', compact('videos'));
+    }
+
+    public function storeHelpVideo(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'youtube_link' => 'required|url|max:500',
+        ]);
+
+        HelpVideo::create($request->only('name', 'youtube_link'));
+
+        return back()->with('success', 'Video qo\'shildi!');
+    }
+
+    public function deleteHelpVideo(HelpVideo $helpVideo)
+    {
+        $helpVideo->delete();
+
+        return back()->with('success', 'Video o\'chirildi!');
+    }
 
     // Statistics
     public function statistics()

@@ -70,6 +70,7 @@
                     <a href="{{ route('products.index') }}" class="text-decoration-none text-dark {{ request()->routeIs('products.*') ? 'text-primary' : '' }}">Katalog</a>
                     <a href="{{ route('artisans.index') }}" class="text-decoration-none text-dark {{ request()->routeIs('artisans.*') ? 'text-primary' : '' }}">Ustalar</a>
                     <a href="{{ route('promotions.index') }}" class="text-decoration-none text-dark {{ request()->routeIs('promotions.*') ? 'text-primary' : '' }}">Aksiyalar</a>
+                    <a href="{{ route('help.index') }}" class="text-decoration-none text-dark {{ request()->routeIs('help.*') ? 'text-primary' : '' }}">Yordam</a>
                 </nav>
 
                 <div class="d-flex align-items-center gap-2 gap-xl-3">
@@ -198,6 +199,10 @@
                 <i class="bi bi-chat-dots"></i>
                 <span>Chat</span>
             </a>
+            <a href="{{ route('help.index') }}" class="bottom-nav-item {{ request()->routeIs('help.*') ? 'active' : '' }}">
+                <i class="bi bi-question-circle"></i>
+                <span>Yordam</span>
+            </a>
             <a href="@if(auth()->user()->isAdmin()) {{ route('admin.dashboard') }} @elseif(auth()->user()->isArtisan()) {{ route('artisan.dashboard') }} @else {{ route('user.dashboard') }} @endif"
                 class="bottom-nav-item {{ request()->routeIs('user.*', 'artisan.*', 'admin.*') ? 'active' : '' }}">
                 <i class="bi bi-person"></i>
@@ -224,6 +229,10 @@
                 class="bottom-nav-item {{ request()->routeIs('promotions.*') ? 'active' : '' }}">
                 <i class="bi bi-tag"></i>
                 <span>Aksiyalar</span>
+            </a>
+            <a href="{{ route('help.index') }}" class="bottom-nav-item {{ request()->routeIs('help.*') ? 'active' : '' }}">
+                <i class="bi bi-question-circle"></i>
+                <span>Yordam</span>
             </a>
             <a href="{{ route('login') }}" class="bottom-nav-item">
                 <i class="bi bi-box-arrow-in-right"></i>

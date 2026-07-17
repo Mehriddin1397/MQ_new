@@ -63,17 +63,6 @@
                                     </div>
                                     <i class="bi bi-check-circle-fill text-primary d-none checked-icon"></i>
                                 </label>
-
-                                <input type="radio" class="btn-check" name="payment_method" id="pay_card" value="card">
-                                <label
-                                    class="btn btn-outline-secondary text-start p-3 rounded-4 d-flex align-items-center justify-content-between"
-                                    for="pay_card">
-                                    <div>
-                                        <i class="bi bi-credit-card me-2"></i>Karta orqali
-                                        <div class="small text-muted mt-1" style="font-weight: 400;">Onlayn to'lov (Humo, Uzcard)
-                                        </div>
-                                    </div>
-                                </label>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\TelegramAuthController;
 use App\Http\Controllers\Auth\TelegramWebAppAuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -37,6 +38,7 @@ Route::get('/products/{product:slug}', [ProductController::class, 'show'])->name
 Route::get('/artisans', [ArtisanController::class, 'index'])->name('artisans.index');
 Route::get('/artisans/{artisan}', [ArtisanController::class, 'show'])->name('artisans.show');
 Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions.index');
+Route::get('/yordam', [HelpController::class, 'index'])->name('help.index');
 
 // Auth routes
 Route::middleware('guest')->group(function () {
@@ -156,4 +158,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // Statistics
     Route::get('/statistics', [AdminController::class, 'statistics'])->name('statistics');
+
+    // Help videos
+    Route::get('/help', [AdminController::class, 'helpVideos'])->name('help.index');
+    Route::post('/help', [AdminController::class, 'storeHelpVideo'])->name('help.store');
+    Route::delete('/help/{helpVideo}', [AdminController::class, 'deleteHelpVideo'])->name('help.delete');
 });

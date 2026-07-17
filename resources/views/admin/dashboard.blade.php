@@ -70,6 +70,12 @@
                         <span class="flex-grow-1">Barcha buyurtmalar</span>
                         <i class="bi bi-chevron-right text-muted small"></i>
                     </a>
+                    <a href="{{ route('admin.help.index') }}"
+                        class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom">
+                        <i class="bi bi-question-circle fs-5 text-muted me-3"></i>
+                        <span class="flex-grow-1">Yordam videolari</span>
+                        <i class="bi bi-chevron-right text-muted small"></i>
+                    </a>
                 </div>
             </div>
 

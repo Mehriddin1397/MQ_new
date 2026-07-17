@@ -51,7 +51,7 @@ class OrderController extends Controller
             'shipping_address' => 'required|string',
             'shipping_city' => 'nullable|string|max:255',
             'notes' => 'nullable|string',
-            'payment_method' => 'required|in:cash,card,transfer',
+            'payment_method' => 'required|in:cash',
             'promo_code' => 'nullable|string|exists:discounts,code',
         ]);
 

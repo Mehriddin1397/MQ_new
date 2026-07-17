@@ -36,14 +36,29 @@
         <!-- Users List -->
         <div class="bg-white rounded-4 shadow-sm border overflow-hidden">
             @foreach($users as $user)
-                <div class="p-3 border-bottom d-flex align-items-center justify-content-between">
+                <div class="p-3 border-bottom d-flex align-items-center justify-content-between flex-wrap gap-2">
                     <div class="d-flex align-items-center gap-3">
                         <img src="{{ $user->avatar_url }}" class="rounded-circle" width="40" height="40">
                         <div>
                             <div class="fw-bold small">{{ $user->name }}</div>
                             <div class="text-muted" style="font-size: 0.7rem;">{{ $user->email }}</div>
-                            <div class="badge bg-light text-dark border p-1 px-2 mt-1" style="font-size: 0.6rem;">
-                                {{ ucfirst($user->role) }}
+                            <div class="text-muted" style="font-size: 0.7rem;">{{ $user->phone ?: '—' }}</div>
+                            <div class="text-muted" style="font-size: 0.7rem;">
+                                {{ $user->city ?: '—' }}{{ $user->address ? ', ' . $user->address : '' }}
+                            </div>
+                            <div class="d-flex flex-wrap gap-1 mt-1">
+                                <div class="badge bg-light text-dark border p-1 px-2" style="font-size: 0.6rem;">
+                                    {{ ucfirst($user->role) }}
+                                </div>
+                                <div class="badge bg-light text-dark border p-1 px-2" style="font-size: 0.6rem;">
+                                    Ro'yxatdan o'tgan: {{ $user->created_at->format('d.m.Y') }}
+                                </div>
+                                <div class="badge bg-light text-dark border p-1 px-2" style="font-size: 0.6rem;">
+                                    Buyurtmalar: {{ $user->orders_count }}
+                                </div>
+                                <div class="badge bg-light text-dark border p-1 px-2" style="font-size: 0.6rem;">
+                                    Xarid: {{ number_format($user->total_spent ?? 0, 0, '.', ' ') }} so'm
+                                </div>
                             </div>
                         </div>
                     </div>
