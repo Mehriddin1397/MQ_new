@@ -9,14 +9,9 @@ html.tg-app .cart-link {
     display: none !important;
 }
 
-/* On the smallest phones, drop the cart item from the bottom nav bar and let the
-   remaining items shrink evenly so the last ones (Kirish/Profil) aren't pushed
-   off the edge of the screen. */
+/* On the smallest phones, let the bottom nav items shrink evenly so the last
+   ones (Kirish/Profil) aren't pushed off the edge of the screen. */
 @media (max-width: 375px) {
-    .bottom-nav .cart-link {
-        display: none !important;
-    }
-
     .bottom-nav {
         justify-content: space-between;
         padding-left: 2px;

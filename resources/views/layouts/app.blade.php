@@ -200,10 +200,6 @@
                 <i class="bi bi-grid"></i>
                 <span>Katalog</span>
             </a>
-            <a href="{{ route('cart.index') }}" class="bottom-nav-item cart-link {{ request()->routeIs('cart.*') ? 'active' : '' }}">
-                <i class="bi bi-bag"></i>
-                <span>Savat</span>
-            </a>
             <a href="{{ route('promotions.index') }}"
                 class="bottom-nav-item {{ request()->routeIs('promotions.*') ? 'active' : '' }}">
                 <i class="bi bi-tag"></i>
