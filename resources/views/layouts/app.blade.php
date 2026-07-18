@@ -23,6 +23,20 @@
         rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @stack('styles')
+
+    {{-- Loaded on every page (not just @guest) so we can reliably detect real Telegram
+         Mini App context before first paint, regardless of auth state. --}}
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // window.Telegram.WebApp exists once the SDK loads, even in a normal browser.
+        // Only a non-empty initData means the page is actually running inside Telegram.
+        (function () {
+            var tg = window.Telegram && window.Telegram.WebApp;
+            if (tg && tg.initData) {
+                document.documentElement.classList.add('tg-app');
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -40,7 +54,7 @@
                         <a href="{{ route('wishlist.index') }}" class="btn btn-icon position-relative">
                             <i class="bi bi-heart"></i>
                         </a>
-                        <a href="{{ route('cart.index') }}" class="btn btn-icon position-relative">
+                        <a href="{{ route('cart.index') }}" class="btn btn-icon position-relative cart-link">
                             <i class="bi bi-bag"></i>
                             @if(auth()->user()->cartItems()->count() > 0)
                                 <span class="badge-count">{{ auth()->user()->cartItems()->count() }}</span>
@@ -81,7 +95,7 @@
                     
                     @auth
                         <a href="{{ route('wishlist.index') }}" class="btn btn-icon"><i class="bi bi-heart"></i></a>
-                        <a href="{{ route('cart.index') }}" class="btn btn-icon position-relative">
+                        <a href="{{ route('cart.index') }}" class="btn btn-icon position-relative cart-link">
                             <i class="bi bi-bag"></i>
                             @if(auth()->user()->cartItems()->count() > 0)
                                 <span class="badge-count">{{ auth()->user()->cartItems()->count() }}</span>
@@ -186,7 +200,7 @@
                 <i class="bi bi-grid"></i>
                 <span>Katalog</span>
             </a>
-            <a href="{{ route('cart.index') }}" class="bottom-nav-item {{ request()->routeIs('cart.*') ? 'active' : '' }}">
+            <a href="{{ route('cart.index') }}" class="bottom-nav-item cart-link {{ request()->routeIs('cart.*') ? 'active' : '' }}">
                 <i class="bi bi-bag"></i>
                 <span>Savat</span>
             </a>
@@ -258,40 +272,31 @@
     </script>
     @guest
         <script>
-            // Telegram Mini App: auto-login using signed initData, before any page renders a login prompt
+            // Telegram Mini App: auto-login using signed initData, before any page renders a login prompt.
+            // telegram-web-app.js is already loaded synchronously in <head>, so window.Telegram.WebApp
+            // is available here by the time this runs (if we're really inside Telegram).
             (function () {
-                function autoLogin() {
-                    var tg = window.Telegram && window.Telegram.WebApp;
-                    if (!tg || !tg.initData) return;
+                var tg = window.Telegram && window.Telegram.WebApp;
+                if (!tg || !tg.initData) return;
 
-                    tg.ready();
+                tg.ready();
 
-                    fetch('{{ route('telegram.webapp-auth') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': window.csrfToken,
-                        },
-                        body: JSON.stringify({ init_data: tg.initData }),
+                fetch('{{ route('telegram.webapp-auth') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    body: JSON.stringify({ init_data: tg.initData }),
+                })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                        if (data && data.ok) {
+                            window.location.href = data.redirect || window.location.href;
+                        }
                     })
-                        .then(function (res) { return res.json(); })
-                        .then(function (data) {
-                            if (data && data.ok) {
-                                window.location.href = data.redirect || window.location.href;
-                            }
-                        })
-                        .catch(function () { /* not inside Telegram or network hiccup */ });
-                }
-
-                if (window.Telegram && window.Telegram.WebApp) {
-                    autoLogin();
-                } else {
-                    var script = document.createElement('script');
-                    script.src = 'https://telegram.org/js/telegram-web-app.js';
-                    script.onload = autoLogin;
-                    document.head.appendChild(script);
-                }
+                    .catch(function () { /* not inside Telegram or network hiccup */ });
             })();
         </script>
     @endguest

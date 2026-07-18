@@ -3,6 +3,41 @@
    Mobile-first Marketplace CSS
    ============================ */
 
+/* Telegram Mini App: cart stays hidden even after the auto-login flow
+   authenticates the user, matching the logged-out browser experience. */
+html.tg-app .cart-link {
+    display: none !important;
+}
+
+/* On the smallest phones, drop the cart item from the bottom nav bar and let the
+   remaining items shrink evenly so the last ones (Kirish/Profil) aren't pushed
+   off the edge of the screen. */
+@media (max-width: 375px) {
+    .bottom-nav .cart-link {
+        display: none !important;
+    }
+
+    .bottom-nav {
+        justify-content: space-between;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .bottom-nav-item {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 4px 2px;
+    }
+
+    .bottom-nav-item i {
+        font-size: 1.05rem;
+    }
+
+    .bottom-nav-item span {
+        font-size: 0.6rem;
+    }
+}
+
 :root {
     --primary: #6366f1;
     --primary-light: #818cf8;
