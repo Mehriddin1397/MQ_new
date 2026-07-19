@@ -71,6 +71,35 @@ class AdminController extends Controller
         return back()->with('success', 'Foydalanuvchi holati yangilandi!');
     }
 
+    public function showUser(User $user)
+    {
+        $user->loadCount('orders')
+            ->load([
+                'artisanProfile',
+                'orders' => fn($q) => $q->latest()->take(10),
+                'reviews' => fn($q) => $q->latest()->take(10),
+            ]);
+
+        $totalSpent = $user->orders()->where('status', 'delivered')->sum('total_amount');
+
+        return view('admin.users.show', compact('user', 'totalSpent'));
+    }
+
+    public function deleteUser(User $user)
+    {
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'O\'zingizni o\'chira olmaysiz!');
+        }
+
+        if ($user->isAdmin()) {
+            return back()->with('error', 'Admin foydalanuvchini o\'chirib bo\'lmaydi!');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.users')->with('success', 'Foydalanuvchi o\'chirildi!');
+    }
+
     // Artisans
     public function artisans(Request $request)
     {

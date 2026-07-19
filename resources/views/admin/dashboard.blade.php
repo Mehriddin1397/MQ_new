@@ -11,11 +11,11 @@
 
         <div class="row g-3 mb-4 mt-1">
             <div class="col-6 col-lg-3">
-                <div class="stat-card">
+                <a href="{{ route('admin.users') }}" class="stat-card d-block text-decoration-none text-reset">
                     <div class="stat-icon bg-info-subtle text-info"><i class="bi bi-people"></i></div>
                     <div class="stat-value">{{ $stats['users'] }}</div>
                     <div class="stat-label">Foydalanuvchilar</div>
-                </div>
+                </a>
             </div>
             <div class="col-6 col-lg-3">
                 <div class="stat-card">
@@ -43,6 +43,12 @@
         <div class="row g-4">
             <div class="col-lg-4">
                 <div class="dash-nav rounded-4 shadow-sm mb-4 border bg-white overflow-hidden" style="display: block;">
+                    <a href="{{ route('admin.users') }}"
+                        class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom">
+                        <i class="bi bi-people fs-5 text-muted me-3"></i>
+                        <span class="flex-grow-1">Foydalanuvchilar boshqaruvi</span>
+                        <i class="bi bi-chevron-right text-muted small"></i>
+                    </a>
                     <a href="{{ route('admin.artisans') }}"
                         class="list-group-item list-group-item-action d-flex align-items-center p-3 border-bottom">
                         <i class="bi bi-person-check fs-5 text-muted me-3"></i>

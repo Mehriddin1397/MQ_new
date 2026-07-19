@@ -68,15 +68,33 @@
                             style="font-size: 0.6rem;">
                             {{ $user->status === 'active' ? 'Faol' : 'Bloklangan' }}
                         </span>
-                        <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit"
-                                class="btn btn-sm {{ $user->status === 'active' ? 'btn-outline-danger' : 'btn-outline-success' }} rounded-pill px-3 py-1"
+                        <div class="d-flex gap-1">
+                            <a href="{{ route('admin.users.show', $user->id) }}"
+                                class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1"
                                 style="font-size: 0.65rem;">
-                                {{ $user->status === 'active' ? 'Bloklash' : 'Tiklash' }}
-                            </button>
-                        </form>
+                                Batafsil
+                            </a>
+                            <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit"
+                                    class="btn btn-sm {{ $user->status === 'active' ? 'btn-outline-danger' : 'btn-outline-success' }} rounded-pill px-3 py-1"
+                                    style="font-size: 0.65rem;">
+                                    {{ $user->status === 'active' ? 'Bloklash' : 'Tiklash' }}
+                                </button>
+                            </form>
+                            @if(!$user->isAdmin() && $user->id !== auth()->id())
+                                <form action="{{ route('admin.users.delete', $user->id) }}" method="POST"
+                                    onsubmit="return confirm('Foydalanuvchini butunlay o\'chirishni xohlaysizmi? Bu amalni ortga qaytarib bo\'lmaydi.')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger rounded-pill px-3 py-1"
+                                        style="font-size: 0.65rem;">
+                                        O'chirish
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     </div>
                 </div>
             @endforeach

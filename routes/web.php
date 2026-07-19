@@ -136,7 +136,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // Users
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/users/{user}', [AdminController::class, 'showUser'])->name('users.show');
     Route::patch('/users/{user}/toggle', [AdminController::class, 'toggleUserStatus'])->name('users.toggle');
+    Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
 
     // Artisans
     Route::get('/artisans', [AdminController::class, 'artisans'])->name('artisans');
