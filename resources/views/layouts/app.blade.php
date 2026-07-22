@@ -24,7 +24,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @stack('styles')
 
-    @vite('resources/js/app.js')
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite('resources/js/app.js')
+    @endif
 
     {{-- Loaded on every page (not just @guest) so we can reliably detect real Telegram
          Mini App context before first paint, regardless of auth state. --}}
