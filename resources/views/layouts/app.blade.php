@@ -24,6 +24,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @stack('styles')
 
+    @vite('resources/js/app.js')
+
     {{-- Loaded on every page (not just @guest) so we can reliably detect real Telegram
          Mini App context before first paint, regardless of auth state. --}}
     <script src="https://telegram.org/js/telegram-web-app.js"></script>

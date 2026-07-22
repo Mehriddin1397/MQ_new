@@ -8,6 +8,8 @@ class Message extends Model
 {
     protected $fillable = ['conversation_id', 'sender_id', 'body', 'type', 'attachment', 'read_at'];
 
+    protected $appends = ['attachment_url'];
+
     protected function casts(): array
     {
         return ['read_at' => 'datetime'];
